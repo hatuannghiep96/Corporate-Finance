@@ -23,10 +23,11 @@ HaTuanNghiep96@outlook.com | +84 906 472 425 | Ho Chi Minh City, Vietnam
 - Redesigned the production workflow, doubling throughput and reducing the daily operating shift from 16 to 12 hours (25% reduction), freeing capacity without additional headcount
 - Drive strategic initiatives to modernise and scale the business from SME to mid-market enterprise
 
-**Supply Chain Management Trainee**
-*Nestlé Vietnam* | Ho Chi Minh City, Vietnam | June 2022 – April 2023
+**Export-Import**
+*Nestlé Vietnam* | Ho Chi Minh City, Vietnam | June 2022 – August 2023
 - Built a strategic communication channel between Vietnam and Japan to support cross-border export growth
 - Delivered 10 export and import projects within 2 months, managing documentation, coordination, and stakeholder alignment
+- Awarded Certificate of Recognition for Excellent Business Performance H1 2023
 - Coordinated the Supplier Innovation Workshop 2023, facilitating collaboration between internal teams and external vendor partners
 
 **Manager Assistant**
@@ -46,13 +47,14 @@ HaTuanNghiep96@outlook.com | +84 906 472 425 | Ho Chi Minh City, Vietnam
 
 - **Journal Article (Q1)** — *A systematic review of AR/VR in operations and supply chain management: maturity, current trends and future directions* | June 2022
 - **Journal Article (Q2)** — *Last Mile Delivery in Logistics and Supply Chain Management: A Bibliometric Analysis and Future Directions* | September 2022
-- **Book Chapter (A Rank)** — *Chapter 5: Role of Logistics Service Providers in the Supply Chain* | September 2020
 - **Journal Article (Q1)** — *Impact of Additive Manufacturing on the Vietnamese Transportation Industry: An Exploratory Study* | June 2020
+- **Book Chapter (A Rank)** — *Chapter 5: Role of Logistics Service Providers in the Supply Chain* | September 2020
 
 ---
 
 ## Prizes & Honours
 
+- **Certificate of Recognition — Excellent Business Performance H1 2023** | Nestlé Vietnam | 2023
 - **Champion** — Nielsen Case Competition, The Nielsen Company Vietnam | 2019
 - **Best Paper Award** — Korea Association of Shipping and Logistics (ICASL 2019) | 2020
 - **Student Leader of the Month** — RMIT Vietnam Leadership | 2020
@@ -77,7 +79,7 @@ HaTuanNghiep96@outlook.com | +84 906 472 425 | Ho Chi Minh City, Vietnam
 ## Skills & Languages
 
 **Languages:** Vietnamese (Native), Cantonese (Fluent), English (Fluent)
-**Functional:** Supply chain management, operations management, process improvement, cross-border logistics, research & analysis, workshop facilitation
+**Functional:** Supply chain management, operations management, process improvement, cross-border logistics, export-import operations, research & analysis, workshop facilitation
 **Tools:** Microsoft Office Suite, supply chain management systems
 
 ---
@@ -86,3 +88,12 @@ HaTuanNghiep96@outlook.com | +84 906 472 425 | Ho Chi Minh City, Vietnam
 
 - *TheLeader* — "AgriBiz and the dream of digitalizing the Vietnamese Agriculture Industry" | June 2021
 - *RMIT Media Release* — "Love of logistics leads to first research published for undergraduate student" | February 2020
+
+---
+
+## References
+
+Available upon request:
+- **Dr. Reza Akbari** — MBA Singapore Academic Director & Senior Lecturer, Logistics and Supply Chain Management, James Cook University (SFHEA)
+- **Mr. Rakesh Dayal** — Managing Director, Ipsos
+- **Ms. Hong NT** — HR at Heineken (Ex-HRBP at Nestlé)
