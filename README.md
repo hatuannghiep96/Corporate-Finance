@@ -12,4 +12,4 @@ Now pursuing his MBA at Shidler College of Business, University of Hawaiʻi at M
 
 ---
 
-📧 HaTuanNghiep96@gmail.com | 🌐 [LinkedIn](https://linkedin.com/in/tuan-nghiep-ha1a656b212](https://www.linkedin.com/in/tuannghiepha/) | 📍 Ho Chi Minh City, Vietnam
+📧 HaTuanNghiep96@gmail.com | 🌐 [LinkedIn](https://www.linkedin.com/in/tuannghiepha/) | 📍 Ho Chi Minh City, Vietnam
