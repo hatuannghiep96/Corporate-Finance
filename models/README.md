@@ -1,15 +1,14 @@
 # models/
 
-This directory contains all Excel-based financial models 
+Contains all Excel-based financial models 
 built throughout BUS-629.
 
 ## Structure
-
 | Folder | Contents |
 |--------|----------|
-| `templates/` | Blank model frameworks from Stage 1 |
-| `builds/` | Populated, working models from Stage 3 |
+| `templates/` | Blank instructor-provided model frameworks — do not populate directly |
+| `builds/` | Populated working models built from Stage 3 onwards |
 
 ## Naming Convention
-`YYYY-MM-DD_stage#_model-description.xlsx`
-Example: `2025-10-15_stage3_dcf-model-v1.xlsx`
+YYYY-MM-DD_stage#_description.xlsx
+Example: 2026-10-15_stage3_nestle-dcf-v1.xlsx

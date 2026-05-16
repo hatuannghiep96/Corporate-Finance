@@ -1,19 +1,17 @@
 # docs/
 
-This directory contains all written deliverables and 
-reference documents produced throughout the BUS-629 
-Corporate Finance course.
+This directory contains all written deliverables 
+and reference documents produced throughout BUS-629 
+International Corporate Finance (VEMBA 33).
 
 ## Structure
-
 | Folder | Contents |
 |--------|----------|
-| `decisions/` | Memos and decision documents (Stage 2) |
-| `specs/` | Technical specifications (Stage 4) |
-| `plans/` | Project plans and timelines |
-| `templates/` | Course-provided templates and frameworks |
+| `decisions/` | Company selection memo and decision documents (Stage 2) |
+| `specs/` | Technical specifications for financial models (Stage 4) |
+| `plans/` | Project plans and milestone timelines |
+| `templates/` | Course-provided templates — do not edit originals |
 
 ## Naming Convention
-Files should be named descriptively with a date prefix:
-`YYYY-MM-DD_description.md`
-Example: `2025-09-01_stage2-decision-memo.md`
+YYYY-MM-DD_description.md
+Example: 2026-05-21_stage2-decision-memo.md
