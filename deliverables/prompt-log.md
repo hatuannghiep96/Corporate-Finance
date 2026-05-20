@@ -271,3 +271,30 @@ evidence-tied justification.
 - **Gap 3 (EVA capital base disambiguation):** Spec listed three capitalization figures in proximity without explaining why start-year is the correct EVA convention. LLM got it right but could have substituted average (~CHF 569M EVA difference). Fix: add convention note to EVA row in Section 6.
 
 **Effectiveness rating:** 4/5 — spec produced zero material arithmetic errors but required editorial intervention on Du Pont rounding and recommendation specificity.
+
+---
+
+## Stage 5 — Repo Polish & AI Tooling Memo (2026-05-20)
+
+**Tool:** Claude (claude.ai)
+**Model:** Claude Sonnet 4.6
+**Purpose:** Complete Stage 5 repo polish checklist and write optional AI tooling experiment memo.
+
+**Actions taken:**
+1. Full repo audit identified 3 remaining issues: missing `docs/feedback/README.md`, stale `docs/README.md` structure table, and `BIO.md`/`RESUME.md` casing. All fixed in commit `de1c4e5`.
+2. Final analysis updated with two missing required sections: "LLM Evaluation & Annotations" and "Executive Justification" — committed in `2949b12`.
+3. Root `README.md` rewritten as a professional portfolio landing page with 6-stage project status table, repo tree, and analyst bio — committed in `2949b12`.
+4. GitHub repo description set manually: "BUS-629 Corporate Finance portfolio — Nestlé S.A. ratio analysis (IFRS, FY2025) | MBA, Shidler UH Mānoa"
+
+**AI tooling memo prompt:**
+```
+I want to write a 100–300 word reflection memo on AI-assisted financial
+analysis for my portfolio repo. Ask me 5 questions first so the memo
+reflects my actual experience, not a generic template.
+```
+
+**Key reflections captured:**
+- Tan Hung Firm (family SME) currently runs on experience with no formal data structure — the workflow from this project is directly applicable at SME scale
+- The biggest surprise: Claude Code's accessibility for someone with zero GitHub or coding background
+- Core insight: AI accelerates the analysis layer but cannot run without structured data — the prerequisite for Tan Hung is building records, not buying tools
+- Would use the spec-driven workflow on real SME financial analysis: gross margin by product line, inventory turnover, distributor receivables days
