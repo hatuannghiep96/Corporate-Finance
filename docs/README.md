@@ -11,6 +11,7 @@ International Corporate Finance (VEMBA 33).
 | `specs/` | Technical specifications for financial models (Stage 4) |
 | `plans/` | Project plans and milestone timelines |
 | `templates/` | Course-provided templates — do not edit originals |
+| `feedback/` | Instructor PR review files — added when instructor opens a review pull request |
 
 ## Naming Convention
 YYYY-MM-DD_description.md
