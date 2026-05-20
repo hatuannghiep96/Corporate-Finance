@@ -33,7 +33,7 @@ Nestlé S.A. is headquartered in Vevey, Switzerland, operating in 188 countries 
 
 I joined Nestlé Vietnam in June 2022, contributing to 10 cross-border export-import projects and the Supplier Innovation Workshop 2023. This experience gives me direct insight into how Nestlé manages inventory replenishment and demand forecasting — hypotheses I carry into this analysis.
 
-The FY2024–2025 period offers a rich analytical environment: post-COVID pricing cycles, volume pushback from consumers, net debt expansion through CHF 7.8 billion in dividends and CHF 4.5 billion in buybacks, and a CHF 2.5 billion cost reduction program ("Fuel for Growth"). These are live leverage, working capital, and return-on-capital decisions that map directly onto the Stage 1 ratio template.
+The FY2024–2025 period offers a rich analytical environment: post-COVID pricing cycles, volume pushback from consumers, net debt expansion through CHF 7.8 billion in dividends and CHF 4.7 billion in buybacks (FY2024), and a CHF 2.5 billion cost reduction program ("Fuel for Growth"). These are live leverage, working capital, and return-on-capital decisions that map directly onto the Stage 1 ratio template.
 
 ---
 
@@ -47,7 +47,7 @@ The analysis draws on Nestlé's audited consolidated financial statements for FY
 
 Three directional hypotheses frame the analysis:
 
-1. **Leverage ratios deteriorated** — net debt rose from CHF 49.6B to CHF 56.0B, pushing net debt/EBITDA to 2.90x, the top of management's 2–3x target range.
+1. **Leverage ratios deteriorated** — net debt rose from CHF 49.6B to CHF 56.0B (FY2023 to FY2024), pushing net debt/EBITDA to 2.90x, the top of management's 2–3x target range.
 2. **Profitability shows margin pressure** — organic growth of 2.2% (real internal growth just 0.8%) suggests headline margins were partially protected by pricing rather than volume efficiency.
 3. **Working capital efficiency improved** — CHF 10.7B free cash flow and lower restructuring costs support this, consistent with Nestlé's disciplined inventory systems I observed directly.
 
