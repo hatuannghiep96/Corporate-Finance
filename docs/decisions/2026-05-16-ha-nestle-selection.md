@@ -23,78 +23,47 @@ courses: [BUS-629]
 
 ## Executive Summary
 
-I am selecting **Nestlé S.A.** (ticker: NESN, Swiss Exchange) as the subject of my ratio analysis for the remainder of this project. Nestlé is the world's largest food and beverage company by revenue, reporting under IFRS with a December 31 fiscal year end. I have direct operational experience at Nestlé Vietnam as a Supply Chain Management Trainee, giving me ground-level familiarity with the company's inventory management systems, supplier relationships, and operational discipline that most external analysts lack. The company's 2023–2024 financials present a compelling analytical subject: revenue declined, net debt climbed to CHF 56.0 billion (net debt/EBITDA of 2.90x), and organic growth turned marginally positive at 2.2% after a period of pricing-led recovery. I expect the ratio analysis to reveal margin compression, rising leverage, and working capital efficiency as the central financial narrative of this period.
+I am selecting **Nestlé S.A.** (NESN, Swiss Exchange) for my ratio analysis. Nestlé is the world's largest food and beverage company by revenue, reporting under IFRS with a December 31 fiscal year end. I worked at Nestlé Vietnam as a Supply Chain Management Trainee, giving me ground-level familiarity with its inventory systems and operational discipline. The FY2024–2025 financials present a compelling analytical subject: net debt stands at CHF 56.0 billion (net debt/EBITDA 2.90x), organic growth is 2.2%, and free cash flow reached CHF 10.7 billion. I expect the analysis to reveal margin pressure, rising leverage, and working capital efficiency as the central financial narrative.
 
 ---
 
 ## Background
 
-Nestlé S.A. is headquartered in Vevey, Switzerland, and operates in 188 countries across six product zones — powdered and liquid beverages, water, milk and nutrition, prepared dishes, confectionery, and pet care. Its market capitalization is approximately USD 253 billion (May 2026). The company reports in Swiss Francs (CHF) under IFRS. The fiscal year ends December 31.
+Nestlé S.A. is headquartered in Vevey, Switzerland, operating in 188 countries across six product zones. It reports in CHF under IFRS with a December 31 fiscal year end.
 
-I joined Nestlé Vietnam as a Supply Chain Management Trainee in June 2022. During my tenure, I contributed to 10 cross-border export and import projects, developed a strategic communication channel between Vietnam and Japan, and participated in the Supplier Innovation Workshop 2023. Working inside Nestlé's operations gave me first-hand exposure to how a world-class FMCG company manages inventory replenishment, supplier relationships, and demand forecasting at scale — capabilities that directly inform the hypotheses I bring to this ratio analysis.
+I joined Nestlé Vietnam in June 2022, contributing to 10 cross-border export-import projects and the Supplier Innovation Workshop 2023. This experience gives me direct insight into how Nestlé manages inventory replenishment and demand forecasting — hypotheses I carry into this analysis.
 
-Beyond personal relevance, Nestlé's 2023–2024 performance presents a rich analytical environment: the company navigated aggressive post-COVID pricing cycles, experienced volume declines as consumers pushed back on higher prices, expanded net debt significantly through dividends and share buybacks, and launched a CHF 2.5 billion cost reduction program ("Fuel for Growth") to restore margin competitiveness. These are live corporate finance decisions — leverage, working capital, return on capital — that map directly onto the Stage 1 ratio template.
+The FY2024–2025 period offers a rich analytical environment: post-COVID pricing cycles, volume pushback from consumers, net debt expansion through CHF 7.8 billion in dividends and CHF 4.5 billion in buybacks, and a CHF 2.5 billion cost reduction program ("Fuel for Growth"). These are live leverage, working capital, and return-on-capital decisions that map directly onto the Stage 1 ratio template.
 
 ---
 
 ## Method
 
-The ratio analysis will draw on Nestlé's audited consolidated financial statements for FY2023 and FY2024, sourced directly from the Nestlé investor relations portal (nestle.com/investors). Both years are available as full IFRS financial statement PDFs. Key data points — income statement, balance sheet, and cash flow statement — will be extracted and entered into the Stage 1 `performance-ratios-template.xlsx` at Stage 3.
-
-Reporting standards: IFRS, as adopted by the IASB and Swiss law. Reporting currency: CHF. Any ratio comparisons referencing prior-year data will account for the significant CHF appreciation versus USD and EUR observed in 2024 (foreign exchange reduced reported sales by 7.5% in FY2024).
+The analysis draws on Nestlé's audited consolidated financial statements for FY2024 and FY2025, sourced from nestle.com/investors/publications. Income statement, balance sheet, and cash flow data will be entered into `performance-ratios-template.xlsx` at Stage 3. All figures remain in CHF (no currency conversion). FX effects — CHF appreciated significantly versus USD and EUR — will be noted when interpreting year-on-year comparisons.
 
 ---
 
 ## Preliminary Observations
 
-Three directional hypotheses frame my analytical approach:
+Three directional hypotheses frame the analysis:
 
-1. **I expect leverage ratios to have deteriorated from FY2023 to FY2024** because Nestlé's net debt rose from CHF 49.6 billion to CHF 56.0 billion, driven by CHF 7.8 billion in dividend payments and CHF 4.5 billion in share buybacks, pushing net debt/EBITDA to 2.90x — the top of management's own 2–3x target range.
+1. **Leverage ratios deteriorated** — net debt rose from CHF 49.6B to CHF 56.0B, pushing net debt/EBITDA to 2.90x, the top of management's 2–3x target range.
+2. **Profitability shows margin pressure** — organic growth of 2.2% (real internal growth just 0.8%) suggests headline margins were partially protected by pricing rather than volume efficiency.
+3. **Working capital efficiency improved** — CHF 10.7B free cash flow and lower restructuring costs support this, consistent with Nestlé's disciplined inventory systems I observed directly.
 
-2. **I expect profitability ratios to show margin pressure despite headline stability** because while the underlying trading operating profit margin held near 17%, reported organic growth was only 2.2% (with real internal growth of just 0.8%), suggesting that headline margins were partially protected by pricing rather than genuine volume-driven efficiency — a pattern that is unsustainable if consumer pushback on price continues.
-
-3. **I expect working capital and asset efficiency ratios to show improvement** because during my time at Nestlé Vietnam I observed the company's disciplined inventory replenishment systems firsthand — demand-driven ordering that minimizes excess stock without risking stockouts. The CHF 10.7 billion free cash flow improvement in FY2024 and the reduction in restructuring costs support this hypothesis at the group level.
-
----
-
-## Ratio Categories Preview
-
-Given Nestlé's capital structure and the FY2023–2024 narrative, the most analytically relevant ratio categories are:
-
-- **Leverage / Solvency** — Net debt/EBITDA at 2.90x (top of target range) makes this the most important category for this company in this period.
-- **Profitability** — Operating margin, net margin, and ROIC (14.1% in FY2024 vs. 13.9% in FY2023) reveal whether the cost reduction program is creating real value or just cutting capacity.
-- **Efficiency / Asset Turnover** — Nestlé's working capital discipline is a core operational strength; the ratios should confirm or challenge the narrative.
-- **Liquidity** — Secondary focus; Nestlé's scale and debt market access make short-term liquidity less of a concern than long-term leverage.
+The most analytically relevant ratio categories are leverage/solvency (primary), profitability and ROIC (14.1% in FY2024), efficiency/asset turnover, and liquidity (secondary).
 
 ---
 
-## Data Collection Plan
+## Limitations
 
-| Data needed | Source | Notes |
-|-------------|--------|-------|
-| FY2024 Income Statement | nestle.com/investors/publications | IFRS, CHF, December 31 FY |
-| FY2023 Income Statement | nestle.com/investors/publications | Prior year comparative |
-| FY2024 Balance Sheet | nestle.com/investors/publications | Including net debt schedule |
-| FY2023 Balance Sheet | nestle.com/investors/publications | Prior year comparative |
-| FY2024 Cash Flow Statement | nestle.com/investors/publications | Free cash flow reconciliation |
-| Market cap / share price | SIX Swiss Exchange / Yahoo Finance | For market-based ratios |
-
-No currency conversion is needed — all analysis will remain in CHF. IFRS vs. VAS differences are not applicable here (Nestlé reports IFRS only). The company's Five Year Review document (also available on the IR page) provides a useful sanity-check layer for ratio outputs at Stage 3.
-
----
-
-## Limitations & Next Steps
-
-This memo selects the subject and frames the hypotheses. Limitations to flag at this stage: Nestlé Vietnam's financials are not publicly disclosed as a standalone entity — the analysis will be conducted at the consolidated Group level (NESN), which aggregates 188 country operations. Where relevant, I will reference Zone AOA (Asia, Oceania, Africa) performance as a proxy for the regional context I observed directly. The CHF's appreciation in 2024 introduces currency distortion in reported figures that will need to be noted when interpreting year-on-year comparisons.
-
-Next step: download FY2023 and FY2024 financial statements from nestle.com/investors and begin populating the Stage 1 template at Stage 3.
+Analysis is conducted at the consolidated Group level (188 countries). Nestlé Vietnam is not disclosed as a standalone entity; Zone AOA will serve as a regional proxy where relevant. CHF appreciation in FY2024 introduces currency distortion requiring disclosure in year-on-year comparisons.
 
 ---
 
 ## References
 
 - Nestlé S.A. Full-Year Results 2024 Press Release (February 13, 2025). nestle.com/media/pressreleases/allpressreleases/full-year-results-2024
+- Nestlé S.A. Consolidated Financial Statements 2025. nestle.com/investors/publications
 - Nestlé S.A. Consolidated Financial Statements 2024. nestle.com/investors/publications
-- Nestlé S.A. Consolidated Financial Statements 2023. nestle.com/investors/publications
-- Nestlé S.A. Half-Year Results 2024 (July 25, 2024). nestle.com/media/pressreleases/allpressreleases/half-year-results-2024
 - Nestlé Vietnam About Us. nestle.com.vn/vi/aboutus/nestlevietnam
