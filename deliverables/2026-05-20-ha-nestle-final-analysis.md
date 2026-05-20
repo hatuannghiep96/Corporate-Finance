@@ -130,3 +130,33 @@ ROC (avg) of 12.4% exceeds WACC by 340bps, but the spread is narrowing. Recommen
 - **CHF appreciation distortion:** CHF strengthened significantly vs. USD and EUR in FY2024, reducing reported sales by ~7.5%. Revenue-based ratios (asset turnover, collection period) are affected. Organic growth figures are the cleaner measure of underlying performance.
 - **Consolidated group level only:** All ratios aggregate 188 countries. Zone AOA (Asia, Oceania, Africa) — which includes Vietnam — may differ materially from group averages and is not separately captured.
 - **Share price point-in-time:** `share_price` of CHF 72.06 (December 31, 2025) drives MVA and market-to-book. These are equity-market-sensitive and should not be interpreted as intrinsic value measures.
+
+---
+
+## LLM Evaluation & Annotations
+
+**What the LLM executed correctly:**
+
+The LLM followed the spec structure precisely — all six ratio categories computed in the correct order, all named ranges referenced explicitly, and all benchmark comparisons grounded in the spec's guidance. Three specific executions deserve credit. First, the collection period calculation correctly used `startYear_receivables` (11,251 — FY2024 balance) rather than current-year receivables (10,561 — FY2025 balance); this is the spec-consistent choice and a common LLM error that did not occur here. Second, the EVA computation correctly used `startYear_total_capitalization` (88,390) as the capital base — not the average or current-year figure — despite three capitalization figures appearing in close proximity in the spec. Third, both validation rule pre-emptions in §6 (negative NWC structural note and Du Pont ROE time-mismatch) appeared correctly in the output without prompting, which meaningfully improved the analytical quality of the leverage and liquidity sections.
+
+**Where the LLM deviated:**
+
+Two deviations were identified in the manual verification table, both rounding artifacts rather than formula errors. The Du Pont ROE was stated as 22.1% instead of the correct 22.2% — caused by the LLM rounding each of the four intermediate components before multiplying, compounding error across four steps. The current ratio was stated as 0.79x; the precise value is 0.786x, within spec rounding conventions. Both were corrected in this final analysis with full arithmetic shown.
+
+**Errors caused by spec gaps vs. LLM limitations:**
+
+Both deviations are traceable to spec gaps, not LLM capability failure. The Du Pont rounding error would have been prevented by a single sentence in Section 6 instructing the executor to carry four decimal places through intermediate Du Pont steps. The current ratio rounding is ambiguous — both 0.79x and 0.786x are valid at different decimal conventions, and the spec did not specify which to use for ratio multiples. The LLM produced no hallucinated values, no fabricated named ranges, and no invented financial figures. Given the complexity of the 25+ ratio computation task, this is a strong execution result.
+
+**Link to spec retrospective:** Full section-by-section verdict, three gap analyses, and effectiveness rating available at `deliverables/2026-05-20-ha-nestle-spec-retrospective.md`.
+
+---
+
+## Executive Justification
+
+Nestlé is a company I know from the inside — not from a Bloomberg terminal, but from the warehouse floor, the supplier negotiation table, and the demand planning system. That perspective shapes my read of these ratios in ways the LLM cannot replicate.
+
+The numbers confirm what anyone who has worked inside a world-class FMCG operation already suspects: Nestlé's moat is not its margin, and it is not its asset base. It is the operational discipline that converts a 74% debt ratio and a 0.64x asset turnover into a 25.9% ROE and CHF 15.9B of operating cash flow year after year. The replenishment system I used daily in Vietnam — three commitment stages, real-time ERP integration, 15–21 day safety stock targets — is not a logistics tool. It is a cash flow engine. It eliminates the bullwhip effect that inflates inventory buffers throughout supply chains, and the CHF 8,725M negative NWC position in this balance sheet is its financial signature at the group level.
+
+What concerns me — and what the LLM's recommendations captured directionally but not with enough urgency — is the margin trajectory. A 180bps decline in trading operating profit margin in a single year is not a rounding error. It is a signal that pricing power, which carried Nestlé through the post-COVID recovery, is exhausting itself faster than volume recovery is materialising. The "Fuel for Growth" program exists because management already knows this. The question is whether CHF 2.5B in cost cuts is enough to restore a 16% margin in a portfolio where the highest-growth segments (pet care, medical nutrition) are also the most capital-intensive.
+
+My strategic thesis: Nestlé in FY2025 is a company at an inflection point between two identities — the high-dividend, high-leverage incumbent that returned CHF 7.8B to shareholders in a single year, and the focused portfolio company that needs to reinvest in above-WACC growth categories to sustain its ROC spread. The ratio evidence suggests it cannot be both simultaneously, not at 2.90x net debt/EBITDA with a contracting margin. The next two years will reveal which identity management chooses. My recommendation, grounded in the leverage and efficiency ratios above, is that the inflection should resolve toward debt reduction and portfolio rationalization — not because it is the comfortable choice, but because the arithmetic of EVA at CHF 2,456M on a CHF 89.5B revenue base leaves almost no margin for error.
