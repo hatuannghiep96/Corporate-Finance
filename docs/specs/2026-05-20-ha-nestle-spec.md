@@ -142,7 +142,30 @@ All values sourced from Nestlé S.A. Consolidated Financial Statements 2025 (IFR
 
 ---
 
-### 4. Derived Inputs
+### 4. Named Range Conventions
+
+All named ranges in the workbook follow a strict prefix convention. Any executor (human or LLM) must reference these prefixes exactly — no abbreviations, no case changes.
+
+| Prefix | Scope | Example |
+|--------|-------|---------|
+| `BAL_` | Balance sheet line items | `BAL_assets_total_curr` |
+| `INC_` | Income statement line items | `INC_sales`, `INC_net` |
+| `CASH_` | Cash flow statement line items | `CASH_operating`, `CASH_capex` |
+| `RATIO_` | Computed ratio outputs | `RATIO_roe`, `RATIO_leverage` |
+| `startYear_*` | Prior-year (FY2024) balance sheet values used as period-start denominators | `startYear_equity`, `startYear_total_assets` |
+| `currentYear_*` | Current-year (FY2025) derived values computed from balance sheet inputs | `currentYear_equity`, `currentYear_working_capital_net` |
+| `avg_*` | Simple average of start-year and current-year values | `avg_equity`, `avg_total_assets` |
+
+**Convention rules:**
+- All names are lowercase with underscores — no camelCase, no hyphens
+- Suffix `_curr` = FY2025 current year balance sheet input
+- Suffix `_prior` = FY2024 prior year balance sheet input
+- Suffix `_curr` is dropped for income statement and cash flow items (single year only)
+- Never hardcode a value where a named range exists — always reference the range
+
+---
+
+### 5. Derived Inputs
 
 All derived inputs are computed in the Ratios tab from named ranges. The executor must not hardcode these values.
 
@@ -174,7 +197,7 @@ All derived inputs are computed in the Ratios tab from named ranges. The executo
 
 ---
 
-### 5. Ratio Definitions & Formulas
+### 6. Ratio Definitions & Formulas
 
 All ratios auto-compute in the Ratios tab output section. The executor must verify each formula references the correct named range and produces a number (no #REF!, #DIV/0!, or #NAME? errors).
 
@@ -238,7 +261,7 @@ All ratios auto-compute in the Ratios tab output section. The executor must veri
 
 ---
 
-### 6. Validation Rules
+### 7. Validation Rules
 
 The executor must verify all of the following before proceeding to analysis:
 
@@ -253,7 +276,7 @@ The executor must verify all of the following before proceeding to analysis:
 
 ## Part B — Analysis Specification
 
-### 7. Analysis Requirements
+### 8. Analysis Requirements
 
 The executor must compute all ratios in Part A, then interpret each category as follows:
 
@@ -288,9 +311,9 @@ The executor must compute all ratios in Part A, then interpret each category as 
 
 ---
 
-### 8. Du Pont Decomposition
+### 9. Du Pont Decomposition
 
-Perform the full Du Pont ROE decomposition using the four components defined in Section 5:
+Perform the full Du Pont ROE decomposition using the four components defined in Section 6:
 
 ```
 ROE = Operating Profit Margin × Asset Turnover × Leverage × Debt Burden
@@ -305,7 +328,7 @@ Step-by-step instructions for the executor:
 
 ---
 
-### 9. Strategic Recommendations
+### 10. Strategic Recommendations
 
 Produce exactly **3–5 strategic recommendations** grounded in ratio evidence. Each recommendation must:
 
@@ -326,7 +349,7 @@ Candidate themes based on the data (executor may substitute with ratio-evidenced
 
 ---
 
-### 10. Output Format
+### 11. Output Format
 
 The Stage 5 analysis deliverable must follow this exact structure:
 
@@ -343,7 +366,7 @@ The Stage 5 analysis deliverable must follow this exact structure:
 2. **Ratio Results** — Present all computed ratios organized by category (Performance, Profitability, Efficiency, Leverage, Liquidity, Du Pont). Use a table for each category. Include the formula, computed value, and one-line interpretation for each ratio.
 3. **Du Pont Decomposition** — Dedicated section. Show the decomposition table, identify the primary driver, and assess sustainability.
 4. **Category Analysis** — One paragraph per ratio category (6 paragraphs total). Each paragraph: what the ratios show, what it means for Nestlé specifically, cross-reference to another category where relevant.
-5. **Strategic Recommendations** — 3–5 numbered recommendations in the format specified in Section 9.
+5. **Strategic Recommendations** — 3–5 numbered recommendations in the format specified in Section 10.
 6. **Limitations** — 3–5 bullet points noting data limitations, definition differences (template vs. management KPIs), and currency effects.
 
 **Formatting rules:**
