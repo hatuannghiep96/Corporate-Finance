@@ -25,3 +25,17 @@ full-year results press release. Confirmed data accuracy.
 3. Claude Code committed and pushed populated workbook to models/builds/
 
 **Verification:** Balance sheet balanced both years (127,151 = 127,151 and 139,264 = 139,264). Zero formula errors. Net income CHF 9,033M, sales CHF 89,490M, operating cash flow CHF 15,904M — all tie to audited source.
+
+## Stage 4 — Technical Specification HIL Iteration (2026-05-20)
+
+**Round 1 gaps identified after reviewing the first draft:**
+
+1. `currentYear_cash_marketable_securities` was used in the Cash Ratio formula (Section 5) but never defined in Section 4 (Derived Inputs). A Stage 5 LLM would not know its source or value.
+
+2. `RATIO_leverage` appeared in the Du Pont table without a formula definition. The Stage 5 LLM could not compute it.
+
+3. `INC_ebit` and `INC_taxable_income` were listed as "(computed)" in Section 3 Data Inputs with no formula — making them inputs, not derived values. Moved formulas to Section 4.
+
+4. The 11.6% operating profit margin benchmark in Section 7 appeared without a formula or source — a Stage 5 LLM could not verify or reproduce it.
+
+**Fixes applied:** Added all four missing definitions to Sections 4, 5, and 7. The spec is now fully self-contained — every named range referenced in a formula has an explicit definition and numeric value.

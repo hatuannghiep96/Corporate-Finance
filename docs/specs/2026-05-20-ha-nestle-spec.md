@@ -168,6 +168,9 @@ All derived inputs are computed in the Ratios tab from named ranges. The executo
 | `avg_equity` | `AVERAGE(startYear_equity, currentYear_equity)` | 34,876 |
 | `avg_total_assets` | `AVERAGE(startYear_total_assets, currentYear_assets_total)` | 133,208 |
 | `avg_total_capitalization` | `AVERAGE(startYear_total_capitalization, currentYear_total_capitalization)` | 83,847 |
+| `currentYear_cash_marketable_securities` | `BAL_cash_marketable_securities_curr` | 6,230 |
+| `INC_ebit` | `INC_sales − INC_cost_goods_sold − INC_sga − INC_depreciation` | 10,361 |
+| `INC_taxable_income` | `INC_ebit + INC_other_income − INC_interest_expense` | 11,673 |
 
 ---
 
@@ -228,7 +231,7 @@ All ratios auto-compute in the Ratios tab output section. The executor must veri
 |-----------|---------|-------------|
 | Operating profit margin | `currentYear_after_tax_operating_income / INC_sales` | `RATIO_operating_profit_margin` |
 | Asset turnover | `INC_sales / startYear_total_assets` | `RATIO_asset_turnover` |
-| Leverage | `currentYear_assets_total / currentYear_equity` | `RATIO_leverage` |
+| Leverage | `BAL_assets_total_curr / BAL_equity_shareholders_curr` | `RATIO_leverage` |
 | Debt burden | `INC_net / INC_taxable_income` | `RATIO_debt_burden` |
 | Du Pont ROA | `RATIO_operating_profit_margin × RATIO_asset_turnover` | % |
 | Du Pont ROE | `RATIO_operating_profit_margin × RATIO_asset_turnover × RATIO_leverage × RATIO_debt_burden` | % |
@@ -271,7 +274,7 @@ The executor must compute all ratios in Part A, then interpret each category as 
 - Asset turnover: How efficiently does Nestlé use its asset base to generate sales?
 - Avg collection period: Compare to FMCG industry norm (~30–45 days). Nestlé's large retailer relationships typically extend payment terms.
 - Days in inventory: Compare FY2025 vs FY2024 (use both start-year figures). A decrease supports Hypothesis 3 (working capital improvement).
-- Operating profit margin: Compare 11.6% template figure to Nestlé's reported trading operating profit margin of 14.2% (FY2025) and explain the difference (template uses after-tax operating income; management uses trading operating profit before tax).
+- Operating profit margin: Compare the template operating profit margin (`currentYear_after_tax_operating_income / INC_sales` = 10,411 / 89,490 = 11.6%) to Nestlé's reported trading operating profit margin of 14.2% (FY2025) and explain the difference (template uses after-tax operating income; management uses trading operating profit before tax).
 
 **Leverage (Debt Ratio, TIE, Debt Burden)**
 - Debt ratio: At 74.0% (94,093 / 127,151), Nestlé is highly leveraged. Interpret in context of investment-grade rating and predictable cash flows.
