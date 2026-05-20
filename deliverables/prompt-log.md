@@ -150,3 +150,124 @@ Fix four gaps in the spec:
 ```
 
 **Final result:** All four gaps closed. Spec is now fully self-contained — every named range referenced in a formula has an explicit definition, source, and numeric value.
+
+---
+
+## Stage 5 — LLM Analysis, Evaluation, and Repo Polish (2026-05-20)
+
+**Tool:** Claude (claude.ai) for analysis generation and document drafting; Claude Code (terminal) for all file commits
+**Model:** Claude Sonnet 4.6
+**Purpose:** Execute Stage 4 spec through LLM, verify output, produce final analysis, spec retrospective, and complete repo polish.
+
+---
+
+### Session 1 — PR feedback response
+
+**Prompt (claude.ai):**
+```
+The instructor opened PR #1 "Stage 4 instructor review" on my repo.
+The feedback file is at docs/feedback/stage4-review-2026-05-19.md.
+Read it and tell me exactly what needs to be done — what to respond,
+what to change, and in what order.
+```
+
+**Actions taken:**
+- Posted response comment on PR thread acknowledging all feedback points
+- Accepted structural suggestion: standalone Named Range Conventions §4
+- Merged PR with descriptive merge commit message referencing the suggestion
+- Added §4 Named Range Conventions (7-row prefix glossary + 5 convention rules) to spec in follow-up commit `a579882`
+
+---
+
+### Session 2 — Raw LLM output generation
+
+**Prompt (claude.ai — spec only, no additional context):**
+```
+[Full contents of docs/specs/2026-05-20-ha-nestle-spec.md pasted verbatim]
+```
+
+No additional context was provided. The spec was required to stand alone per Stage 5 instructions. The complete unedited response was saved as `deliverables/2026-05-20-ha-nestle-llm-raw.md`.
+
+**Output summary:** All 25+ ratios computed with full arithmetic. Two issues identified for correction:
+1. Du Pont ROE stated as 22.1% — correct value is 22.2% (intermediate rounding compounded across four multiplications)
+2. Current Ratio stated as 0.79x — precise value is 0.786x (rounding convention difference, not an error)
+
+---
+
+### Session 3 — Manual verification table
+
+**Prompt (claude.ai):**
+```
+Build a manual verification table for Stage 5. Select 7 ratios spanning
+all categories — prioritize ratios involving averages, start-year values,
+or multi-step calculations where LLM errors are most likely. Show full
+arithmetic for each. Compare to the LLM's stated values. Flag any discrepancies
+with an explanation.
+```
+
+**Ratios selected and outcome:**
+
+| Ratio | Result |
+|---|---|
+| ROC (avg capitalization) | ✅ Exact match (12.4%) |
+| EVA | ✅ Exact match (CHF 2,456M) |
+| Du Pont ROE | ⚠️ Rounding difference (22.2% vs LLM's 22.1%) |
+| Avg Collection Period | ✅ Exact match (45.9 days) — LLM correctly used start-year receivables |
+| Times Interest Earned | ✅ Exact match (5.67x) |
+| Current Ratio | ⚠️ Rounding difference (0.786x vs LLM's 0.79x) |
+| ROE (avg equity) | ✅ Exact match (25.9%) |
+
+Zero material errors. Both discrepancies are rounding artifacts documented with full arithmetic.
+
+---
+
+### Session 4 — Final analysis with insider context
+
+**Round 1 prompt (claude.ai):**
+```
+Draft the evaluated final analysis from the raw LLM output. Apply the
+two rounding corrections. Add annotations where corrections were made.
+Follow the output format in spec §11: Executive Summary, Ratio Results,
+Du Pont, Category Analysis, Strategic Recommendations, Limitations.
+Target: 1,200–1,800 words excluding tables.
+```
+
+**HIL iteration — insider context addition:**
+
+After reviewing the Round 1 draft, I provided direct operational context from my time at Nestlé Vietnam to replace generic FMCG commentary:
+
+- **Replenishment system:** Nestlé's proprietary demand-sensing system connects directly with supplier ERP systems and issues daily recommended purchase orders ("Đơn Hàng Đề Nghị"). The system runs through three commitment stages — fully flexible, ±5 unit adjustment, locked — progressively capturing real demand and eliminating bullwhip effect across the supply chain. Safety stock maintained at 15–21 days depending on product type.
+- **Supplier payment terms:** 90-day payment terms applied uniformly across the supply base as a global parent company policy — the structural source of Nestlé's negative NWC position.
+- **Product line context:** Coffee product line management, including cross-border export-import projects between Vietnam and Japan.
+
+**Round 2 prompt (claude.ai):**
+```
+Rewrite the Efficiency and Liquidity category analysis paragraphs using
+the operational details I just provided. Weave the replenishment system
+explanation (three commitment stages, Đơn Hàng Đề Nghị, 15–21 day safety
+stock, bullwhip effect) into the inventory discussion. Add the 90-day
+supplier payment terms to the liquidity section as the structural source
+of negative NWC. Keep prose within 1,200–1,800 words excluding tables.
+```
+
+**Final result:** 1,703 words prose (excluding tables). Two corrections annotated inline. Recommendation 4 reframed from generic "supply chain finance" to expanding the replenishment platform globally with a specific inventory days target (99.4 → 92–94 days).
+
+---
+
+### Session 5 — Spec retrospective
+
+**Prompt (claude.ai):**
+```
+Complete the spec retrospective template for my Stage 4 spec. Use the
+verification table and final analysis as evidence. Be honest — the grade
+rewards specificity over self-congratulation. Identify the three most
+consequential gaps with exact fix language. Rate effectiveness 1–5 with
+evidence-tied justification.
+```
+
+**Key findings:**
+- **Gap 1 (Du Pont precision):** Spec did not instruct executor to carry full decimal precision through Du Pont intermediate steps. Fix: add four-decimal-place precision instruction to Section 6.
+- **Gap 2 (recommendation quantitative targets):** Spec required "actionable" recommendations but not numeric targets. Two recommendations required editorial additions. Fix: add mandatory quantitative target requirement to Section 9.
+- **Gap 3 (EVA capital base disambiguation):** Spec listed three capitalization figures in proximity without explaining why start-year is the correct EVA convention. LLM got it right but could have substituted average (~CHF 569M EVA difference). Fix: add convention note to EVA row in Section 6.
+
+**Effectiveness rating:** 4/5 — spec produced zero material arithmetic errors but required editorial intervention on Du Pont rounding and recommendation specificity.
