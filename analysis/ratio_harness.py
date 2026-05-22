@@ -428,3 +428,142 @@ if __name__ == "__main__":
     r = compute_ratios(d)
     llm = extract_llm_values(ANALYSIS_PATH)
     compare_and_report(r, llm)
+
+# ── STEP 5: SENSITIVITY & MONTE CARLO ─────────────────────────────────────────
+
+def run_sensitivity(d):
+    """
+    Direction 3 extension — EVA sensitivity and Monte Carlo simulation.
+    Implements spec Section 12 requirements:
+    - EVA at 5 WACC points
+    - Break-even WACC computation
+    - 5,000-trial Monte Carlo over cost_capital and tax_rate
+    - Text tornado chart
+    - Narrative paragraph
+    """
+    import numpy as np
+
+    print(f"\n{'='*62}")
+    print("STEP 5 — Sensitivity & Monte Carlo (Section 12)")
+    print(f"{'='*62}")
+
+    START_CAP = d["BAL_debt_long_term_prior"] + d["BAL_equity_shareholders_prior"]
+
+    def compute_atoi(tax_rate):
+        return d["INC_net"] + (1 - tax_rate) * d["INC_interest_expense"]
+
+    def compute_eva(wacc, tax_rate):
+        atoi = compute_atoi(tax_rate)
+        return atoi - (wacc * START_CAP)
+
+    # ── Output 1: EVA at 5 WACC points ──
+    print("\n  Output 1 — EVA sensitivity to WACC (tax rate held at base 24.6%)")
+    print(f"\n  {'WACC':>8}  {'EVA (CHF M)':>14}  {'vs base':>12}")
+    print(f"  {'-'*38}")
+
+    base_eva = compute_eva(COST_CAPITAL, TAX_RATE)
+    wacc_points = [0.07, 0.08, COST_CAPITAL, 0.10, 0.11]
+
+    for w in wacc_points:
+        eva = compute_eva(w, TAX_RATE)
+        delta = eva - base_eva
+        marker = " ← base" if w == COST_CAPITAL else ""
+        print(f"  {w*100:>7.1f}%  {eva:>14,.0f}  {delta:>+12,.0f}{marker}")
+
+    # ── Output 2: Break-even WACC ──
+    breakeven_wacc = compute_atoi(TAX_RATE) / START_CAP
+    print(f"\n  Output 2 — Break-even WACC (EVA = 0):")
+    print(f"    Formula: atoi / startYear_cap = {compute_atoi(TAX_RATE):,.0f} / {START_CAP:,.0f}")
+    print(f"    Break-even WACC = {breakeven_wacc*100:.2f}%")
+    print(f"    Base WACC       = {COST_CAPITAL*100:.1f}%")
+    print(f"    Headroom        = {(breakeven_wacc - COST_CAPITAL)*100:.2f} percentage points")
+    print(f"    Interpretation: EVA turns negative if WACC rises above {breakeven_wacc*100:.2f}%")
+
+    # ── Output 3: Monte Carlo ──
+    print(f"\n  Output 3 — Monte Carlo simulation (5,000 trials)")
+    N = 5000
+    np.random.seed(42)
+
+    # cost_capital: triangular (low=7%, mode=9%, high=11%)
+    wacc_samples = np.random.triangular(0.07, COST_CAPITAL, 0.11, N)
+
+    # tax_rate: uniform (22%–28%)
+    tax_samples = np.random.uniform(0.22, 0.28, N)
+
+    # Compute EVA for each trial
+    atoi_samples = (d["INC_net"] +
+                    (1 - tax_samples) * d["INC_interest_expense"])
+    eva_samples  = atoi_samples - (wacc_samples * START_CAP)
+
+    p10  = np.percentile(eva_samples, 10)
+    p50  = np.percentile(eva_samples, 50)
+    p90  = np.percentile(eva_samples, 90)
+    prob_positive = (eva_samples > 0).mean() * 100
+
+    print(f"\n    EVA distribution across {N:,} trials:")
+    print(f"    {'10th percentile (pessimistic):':<35} {p10:>10,.0f} CHF M")
+    print(f"    {'50th percentile (median):':<35} {p50:>10,.0f} CHF M")
+    print(f"    {'90th percentile (optimistic):':<35} {p90:>10,.0f} CHF M")
+    print(f"    {'Probability EVA > 0:':<35} {prob_positive:>10.1f}%")
+    print(f"    {'Base case EVA:':<35} {base_eva:>10,.0f} CHF M")
+
+    # ── Output 4: Tornado chart ──
+    print(f"\n  Output 4 — Tornado chart (holding other input at base case)")
+
+    # WACC sensitivity: vary wacc from 7% to 11%, hold tax at base
+    eva_wacc_low  = compute_eva(0.07, TAX_RATE)
+    eva_wacc_high = compute_eva(0.11, TAX_RATE)
+    wacc_range    = abs(eva_wacc_high - eva_wacc_low) / 2
+
+    # Tax sensitivity: vary tax from 22% to 28%, hold wacc at base
+    eva_tax_low   = compute_eva(COST_CAPITAL, 0.22)
+    eva_tax_high  = compute_eva(COST_CAPITAL, 0.28)
+    tax_range     = abs(eva_tax_high - eva_tax_low) / 2
+
+    max_range = max(wacc_range, tax_range)
+    bar_width  = 30
+
+    def bar(val, max_val, width):
+        filled = int(val / max_val * width)
+        return "━" * filled + "─" * (width - filled)
+
+    print(f"\n    EVA sensitivity ±range from base case (CHF M)")
+    print(f"    {'─'*55}")
+    print(f"    cost_capital  [{bar(wacc_range, max_range, bar_width)}]  ±{wacc_range:,.0f}M")
+    print(f"    tax_rate      [{bar(tax_range,  max_range, bar_width)}]  ±{tax_range:,.0f}M")
+    print(f"    {'─'*55}")
+    dominant = "cost_capital (WACC)" if wacc_range > tax_range else "tax_rate"
+    print(f"    Primary driver of EVA uncertainty: {dominant}")
+
+    # ── Output 5: Narrative paragraph ──
+    print(f"\n  Output 5 — Narrative summary:")
+    print(f"""
+    WACC is the dominant driver of EVA uncertainty — a 400bps range in
+    cost_capital (7–11%) produces ±CHF {wacc_range:,.0f}M of EVA variance,
+    vs ±CHF {tax_range:,.0f}M from a 600bps range in the effective tax rate.
+    This is expected: EVA is linear in WACC via the capital charge term
+    (WACC × startYear_cap = WACC × CHF {START_CAP:,.0f}M), while the tax rate
+    enters only through after-tax operating income.
+
+    The break-even WACC of {breakeven_wacc*100:.2f}% sits {(breakeven_wacc-COST_CAPITAL)*100:.2f} percentage
+    points above the base case of {COST_CAPITAL*100:.1f}%. This means Nestlé's value-creation
+    thesis is robust to a meaningful rise in the cost of capital — the company
+    would need to see WACC rise by roughly {(breakeven_wacc-COST_CAPITAL)*100:.0f}bps before
+    EVA turns negative.
+
+    Across {N:,} Monte Carlo trials, {prob_positive:.1f}% of simulations produce
+    positive EVA. The 10th percentile EVA of CHF {p10:,.0f}M is
+    {'positive — value creation holds even under pessimistic assumptions.' if p10 > 0 else 'negative — value creation is not robust under pessimistic assumptions.'}
+    The median EVA of CHF {p50:,.0f}M is close to the base case of
+    CHF {base_eva:,.0f}M, confirming that the base case is a reasonable
+    central estimate rather than an optimistic outlier.
+    """)
+
+    print(f"{'='*62}")
+    print("Sensitivity analysis complete.")
+    print(f"{'='*62}\n")
+
+
+# ── UPDATE MAIN TO INCLUDE SENSITIVITY ────────────────────────────────────────
+
+

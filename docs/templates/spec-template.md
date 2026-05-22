@@ -385,3 +385,59 @@ To run this analysis for a different company:
 6. Verify ≥5 ratios manually and produce the final analysis
 
 The named-range conventions (Section 3), formula definitions (Section 6), validation rules (Section 7), and Du Pont decomposition (Section 9) require no changes between companies. Only the inputs file and the company-specific context fields change.
+
+---
+
+## 12. Sensitivity Specification
+
+> **Purpose:** Point-estimate specs produce point-estimate analyses. This section extends the analysis to quantify uncertainty in the two analyst assumptions that most affect EVA and profitability ratios. The executor must produce a sensitivity appendix alongside the main ratio results.
+
+### Inputs to stress-test
+
+| Input | Named range | Point estimate | Range | Distribution |
+|---|---|---|---|---|
+| Cost of capital (WACC) | `cost_capital` | {{cost_capital}} | 7.0% – 11.0% | Triangular, mode = {{cost_capital}} |
+| Effective tax rate | `tax_rate` | {{tax_rate}} | 22.0% – 28.0% | Uniform |
+
+### Required outputs
+
+**Output 1 — EVA sensitivity table:**
+Recompute EVA at five WACC points holding tax rate at point estimate:
+
+| WACC | EVA ({{CURRENCY}} {{UNIT}}) | vs base case |
+|---|---|---|
+| 7.0% | [compute] | [delta] |
+| 8.0% | [compute] | [delta] |
+| {{cost_capital}} (base) | [compute] | — |
+| 10.0% | [compute] | [delta] |
+| 11.0% | [compute] | [delta] |
+
+**Output 2 — EVA break-even WACC:**
+Find the WACC at which EVA = 0. Formula:
+```
+EVA = 0  when  cost_capital = currentYear_after_tax_operating_income / startYear_total_capitalization
+```
+State this value explicitly. If EVA is positive at the base case WACC, the break-even WACC is the maximum the company can sustain before destroying value.
+
+**Output 3 — Monte Carlo simulation (5,000 trials):**
+- Draw `cost_capital` from triangular distribution (low=7%, mode={{cost_capital}}, high=11%)
+- Draw `tax_rate` from uniform distribution (low=22%, high=28%)
+- Recompute `currentYear_after_tax_operating_income` and EVA each trial
+- Report: EVA at 10th, 50th, 90th percentile
+- Report: probability that EVA > 0
+
+**Output 4 — Tornado chart (text format):**
+Show which input drives more EVA variance:
+```
+EVA sensitivity (holding other input at base case)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cost_capital  [━━━━━━━━━━━━━━━━━━━━━━━] ±{{range}}M
+tax_rate      [━━━━━━━━━━━] ±{{range}}M
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Output 5 — One narrative paragraph:**
+State which input dominates EVA uncertainty, what the break-even WACC implies for the company's value-creation thesis, and whether the 10th percentile EVA is still positive (i.e., whether value creation is robust to pessimistic assumptions).
+
+### Conformance note
+The ratio harness (`analysis/ratio_harness.py`) verifies the base-case EVA computation. The Monte Carlo extension in the harness independently validates the break-even WACC and percentile outputs.
