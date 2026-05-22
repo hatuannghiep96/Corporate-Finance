@@ -298,3 +298,100 @@ reflects my actual experience, not a generic template.
 - The biggest surprise: Claude Code's accessibility for someone with zero GitHub or coding background
 - Core insight: AI accelerates the analysis layer but cannot run without structured data — the prerequisite for Tan Hung is building records, not buying tools
 - Would use the spec-driven workflow on real SME financial analysis: gross margin by product line, inventory turnover, distributor receivables days
+
+---
+
+## Portfolio Extensions — Direction 4: Parameterized Spec Template (2026-05-22)
+
+**Tool:** Claude (claude.ai)
+**Model:** Claude Sonnet 4.6
+**Purpose:** Refactor the Nestlé-specific Stage 4 spec into a reusable parameterized template that any analyst can run for a different company by swapping one inputs file.
+
+**Prompt:**
+```
+Read the instructor's Direction 4 advice carefully. Refactor
+docs/specs/2026-05-20-ha-nestle-spec.md into two files:
+1. docs/templates/spec-template.md — company-agnostic structure
+   with {{PLACEHOLDER}} syntax for all company-specific values
+2. docs/specs/2026-05-20-ha-nestle-inputs.yaml — all Nestle-specific
+   data values, analyst assumptions, and business context fields
+
+Apply the Gap 1 fix (Du Pont precision instruction) and Gap 2 fix
+(mandatory quantitative targets) from the retrospective while
+rewriting. Make it Unilever-runnable by swapping only the inputs file.
+```
+
+**Design decisions made:**
+- `{{PLACEHOLDER}}` syntax chosen over Jinja2 for readability — any analyst can understand it without coding knowledge
+- YAML format for inputs — machine-readable by Python (feeds directly into Direction 1 harness) and human-readable for manual editing
+- Gap 1 fix applied to Section 6: "Compute each component to at least four decimal places before multiplying. Round only the final output."
+- Gap 2 fix applied to Section 10: mandatory quantitative target required in every recommendation
+- "How to use" section added at bottom — self-documenting for future analysts
+- "Notes for next analyst" comments added in yaml — explains exactly what to change for Unilever
+
+**Output:** 552 lines total across two files — commit `0a02255`
+
+**Next steps identified:**
+- Run for Unilever as validation that the template is truly company-agnostic
+- Add §12 Sensitivity Specification to the template (Direction 3 extension)
+- Link the Python harness (Direction 1) to the template as the conformance artifact
+
+---
+
+## Portfolio Extensions — Direction 1: Python Ratio Conformance Harness (2026-05-22)
+
+**Tool:** Claude (claude.ai) for script design; Claude Code for execution
+**Model:** Claude Sonnet 4.6
+**Purpose:** Build a 430-line Python script that automatically reads the Stage 3 workbook, recomputes all 23 ratios from spec formulas, extracts LLM-stated values from the final analysis markdown, and reports PASS/FAIL per ratio with tolerances.
+
+**Design prompt:**
+```
+Build a Python conformance harness for the Nestle ratio analysis.
+It must:
+1. Load models/builds/2026-05-20-ha-nestle-financials.xlsx via openpyxl
+2. Read named ranges from Balance Sheet, Income Statement, Cash Flow tabs
+3. Recompute all 23 ratios from spec Section 6 formulas at full precision
+4. Extract LLM-stated values from deliverables/2026-05-20-ha-nestle-final-analysis.md via regex
+5. Compare computed vs LLM values with tolerances:
+   - Percentages: ±0.15 percentage points
+   - Multiples: ±0.02x
+   - Days: ±0.5 days
+   - CHF values: ±50M
+6. Report PASS/FAIL per ratio in a clean table
+7. Run the Du Pont rounding gap analysis automatically
+   (Gap 1 from retrospective: full precision vs early-rounded path)
+8. Validate balance sheet balance
+```
+
+**Execution result:**
+```
+Ratios checked:   23
+PASS:             23
+FAIL:              0
+Pass rate:       100.0%
+```
+
+**Notable diagnostics caught automatically:**
+- EVA: computed CHF 2,454.70M vs LLM-stated CHF 2,456M — CHF 1.3M difference, within tolerance ✓
+- Du Pont ROE: full precision 22.2483% vs early-rounded 22.1228% — 0.1255% gap confirmed and quantified automatically — exactly the Gap 1 issue documented in the spec retrospective
+- Balance sheet: Assets − (Liabilities + Equity) = 0 ✓
+
+**Significance:** The harness independently confirmed what the manual verification table showed — zero material errors in the LLM output. The Du Pont rounding gap detection is the Gap 1 retrospective insight now running as code. Commit `[see latest]`.
+
+**Next steps identified:**
+- Add Monte Carlo sensitivity loop over cost_capital (7–11%) — produces EVA tornado chart (Direction 3 extension, ~20 additional lines)
+- Verify EVA crosses zero at WACC ≈ 11.8% automatically
+- Update WORKBOOK_PATH and ANALYSIS_PATH to run for Unilever once inputs yaml is complete
+
+---
+
+## Recommended next sessions (not yet executed)
+
+**Priority 1 — Operational context annex:**
+Extract Nestlé Vietnam insider knowledge into `analysis/operational-context.md` — replenishment system architecture, 90-day supplier terms, three commitment stages, bullwhip effect elimination. Currently buried in Stage 5 prompt log. As a standalone artifact it becomes reusable context for future LLM runs and a portfolio piece the instructor specifically called out.
+
+**Priority 2 — Direction 1 extension (Monte Carlo):**
+Add §12 Sensitivity Specification to spec-template.md. Extend ratio_harness.py with a 5,000-trial Monte Carlo over cost_capital (7–11%, triangular) and tax_rate (22–28%, uniform). Report EVA at 10th/50th/90th percentile. Verify EVA-crosses-zero WACC programmatically (~11.8% based on arithmetic: EVA = 0 when WACC = atoi / startYear_cap = 10,411 / 88,390 = 11.78%).
+
+**Priority 3 — Direction 4 validation (Unilever run):**
+Download Unilever FY2024 + FY2025 IFRS financials. Create `2026-05-22-ha-unilever-inputs.yaml` by duplicating the Nestlé file and replacing all values. Run spec-template.md end-to-end. Write a one-page comparison memo: where do Nestlé and Unilever converge/diverge on ratios, and what does the gap reveal about FMCG capital allocation strategy?
