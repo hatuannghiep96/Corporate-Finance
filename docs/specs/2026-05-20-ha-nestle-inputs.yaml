@@ -1,0 +1,165 @@
+# Nestlé S.A. — Company-Specific Inputs
+# Pairs with: docs/templates/spec-template.md
+# To run for a different company: duplicate this file, replace all values, keep the keys unchanged.
+# All monetary values in CHF millions unless noted.
+
+# ── COMPANY IDENTITY ──────────────────────────────────────────────────────────
+COMPANY_FULL: "Nestlé S.A."
+COMPANY_SHORT: "Nestlé"
+TICKER: "NESN"
+EXCHANGE: "SIX Swiss Exchange"
+ANALYST_NAME: "Ha Tuan Nghiep"
+ANALYSIS_DATE: "2026-05-20"
+VERSION: "1.0"
+
+# ── REPORTING ─────────────────────────────────────────────────────────────────
+REPORTING_STANDARD: "IFRS as adopted by the IASB and Swiss law"
+CURRENCY: "CHF"
+CURRENCY_FULL: "Swiss Francs (CHF)"
+UNIT: "millions"
+FY_CURRENT: "FY2025"
+FY_PRIOR: "FY2024"
+FYE_CURRENT: "December 31, 2025"
+FYE_PRIOR: "December 31, 2024"
+WORKBOOK_FILENAME: "2026-05-20-ha-nestle-financials.xlsx"
+INPUTS_FILE: "docs/specs/2026-05-20-ha-nestle-inputs.yaml"
+
+# ── AUDIENCE ──────────────────────────────────────────────────────────────────
+AUDIENCE_PRIMARY: "BUS-629 course instructor (Adam Stauffer)"
+AUDIENCE_SECONDARY: "a senior analyst reviewing the work for portfolio inclusion"
+
+# ── BALANCE SHEET — FY2025 (CURRENT YEAR) ─────────────────────────────────────
+BAL_cash_marketable_securities_curr: 6230
+BAL_receivables_curr: 10561
+BAL_inventories_curr: 12813
+BAL_assets_other_current_curr: 2365
+BAL_assets_current_curr: 31969
+BAL_ppe_curr: 32549
+BAL_intangibles_curr: 44309
+BAL_assets_other_curr: 18324
+BAL_assets_total_curr: 127151
+BAL_debt_current_curr: 11606
+BAL_payables_curr: 20023
+BAL_liabilities_other_current_curr: 9065
+BAL_liabilities_current_curr: 40694
+BAL_debt_long_term_curr: 46246
+BAL_liabilities_other_long_term_curr: 7153
+BAL_liabilities_total_curr: 94093
+BAL_equity_common_curr: -130
+BAL_equity_retained_curr: 33188
+BAL_equity_shareholders_curr: 33058
+
+# ── BALANCE SHEET — FY2024 (PRIOR YEAR) ───────────────────────────────────────
+BAL_cash_marketable_securities_prior: 7871
+BAL_receivables_prior: 11251
+BAL_inventories_prior: 13260
+BAL_assets_other_current_prior: 2806
+BAL_assets_current_prior: 35188
+BAL_ppe_prior: 33706
+BAL_intangibles_prior: 49840
+BAL_assets_other_prior: 20530
+BAL_assets_total_prior: 139264
+BAL_debt_current_prior: 11863
+BAL_payables_prior: 21807
+BAL_liabilities_other_current_prior: 9193
+BAL_liabilities_current_prior: 42863
+BAL_debt_long_term_prior: 51697
+BAL_liabilities_other_long_term_prior: 8011
+BAL_liabilities_total_prior: 102571
+BAL_equity_shareholders_prior: 36693
+
+# ── INCOME STATEMENT — FY2025 ─────────────────────────────────────────────────
+INC_sales: 89490
+INC_cost_goods_sold: 48694
+INC_sga: 26802         # Distribution + Marketing + R&D
+INC_depreciation: 3633
+INC_ebit: 10361        # Computed: sales - cogs - sga - d&a
+INC_other_income: 3138 # Net; includes associates CHF 1,143M (IFRS: after tax)
+INC_interest_expense: 1826
+INC_taxable_income: 11673  # Computed: ebit + other_income - interest
+INC_taxes: 2640
+INC_net: 9033          # To parent shareholders only
+INC_dividends: 7849
+
+# ── CASH FLOW — FY2025 ────────────────────────────────────────────────────────
+CASH_operating: 15904
+CASH_capex: -4527
+CASH_investing: -4367
+CASH_financing: -12500
+CASH_net: -963
+CASH_depreciation: 3633
+
+# ── ANALYST ASSUMPTIONS ───────────────────────────────────────────────────────
+yearCurrent: 2025
+share_price: 72.06      # NESN closing price December 31, 2025 (CHF, SIX Swiss Exchange)
+shares_outstanding: 2572  # Diluted weighted average, FY2025 (millions)
+cost_capital: 0.09      # 9.0% WACC — BUS-629 class default
+tax_rate: 0.246         # 24.6% effective rate FY2025 (2,640 / 10,751 + 273)
+
+# ── COMPANY-SPECIFIC CONTEXT (Part B placeholders) ────────────────────────────
+
+STRUCTURAL_NOTES: >
+  Net working capital is negative: currentYear_working_capital_net = (8,725) CHF M.
+  This is structurally normal for Nestlé — the company operates with negative NWC
+  due to 90-day supplier payment terms (global parent company policy) combined with
+  ~46-day retail collection periods. Do not treat as a liquidity concern.
+  The real liquidity buffer is CHF 15.9B in annual operating cash flow.
+
+MANAGEMENT_ROIC_NOTE: >
+  Nestlé's management-reported ROIC was 14.1% in FY2024. Compare template ROC
+  to this figure and explain the ~1.7 percentage point difference: management uses
+  invested capital (net debt + equity) while the template uses total capitalization
+  (long-term debt + equity) on an average basis.
+
+INDUSTRY_COLLECTION_NORM: "30–45 days (FMCG industry)"
+
+COLLECTION_PERIOD_CONTEXT: >
+  Nestlé's large retail counterparties (Walmart, Carrefour, Tesco) negotiate
+  extended payment terms as a condition of shelf space. A collection period
+  at the upper edge of the norm reflects this structural dynamic, not weak
+  receivables management.
+
+MANAGEMENT_OPERATING_MARGIN: "14.2% (FY2025 trading operating profit margin)"
+
+MANAGEMENT_LEVERAGE_NOTE: >
+  Management's net debt/EBITDA was 2.90x (FY2024) — at the top of the stated
+  2–3x target range. Note that management's definition nets cash from gross debt;
+  the template's debt ratio uses total liabilities, producing a different absolute
+  figure (74.0%) that is not directly comparable to the net debt/EBITDA metric.
+
+LIQUIDITY_CONTEXT: >
+  Current ratio below 1.0x is expected given Nestlé's negative NWC structure
+  driven by 90-day supplier payment terms. Interpret liquidity through the lens
+  of CHF 15.9B annual operating cash flow, not the balance sheet ratios alone.
+
+LEVERAGE_SUSTAINABILITY_NOTE: >
+  Cross-reference net debt/EBITDA 2.90x (FY2024) and management's stated 2–3x
+  target range. At the top of that range, the leverage factor of ~3.85x has
+  limited room to expand further without triggering a rating review.
+
+RECOMMENDATION_THEMES: |
+  1. Leverage reduction — net debt/EBITDA 2.90x at top of target range; CHF 15.9B
+     operating CF creates opportunity to accelerate debt repayment.
+  2. Margin recovery — trading operating margin fell from 16.0% (FY2024) to 14.2%
+     (FY2025); "Fuel for Growth" CHF 2.5B cost reduction program progress to evaluate.
+  3. Asset efficiency — goodwill + intangibles CHF 44.3B (35% of total assets);
+     portfolio rationalization could improve asset turnover from 0.64x.
+  4. Working capital discipline — negative NWC of (CHF 8.7B) reflects 90-day supplier
+     terms; maintaining this advantage protects operating cash flow.
+  5. Capital allocation — FY2025 buybacks CHF 213M vs CHF 4.7B FY2024 (program
+     complete); evaluate dividend growth vs debt reduction vs M&A.
+
+# ── SOURCE DOCUMENTATION ───────────────────────────────────────────────────────
+sources:
+  - "Nestlé S.A. Consolidated Financial Statements 2025. nestle.com/investors/publications"
+  - "Nestlé S.A. Consolidated Financial Statements 2024. nestle.com/investors/publications"
+  - "Nestlé S.A. Full-Year Results 2024 Press Release (February 13, 2025)"
+  - "Stage 3 workbook: models/builds/2026-05-20-ha-nestle-financials.xlsx"
+
+# ── NOTES FOR NEXT ANALYST ────────────────────────────────────────────────────
+# To run for Unilever (or any FMCG peer):
+# 1. Duplicate this file: YYYY-MM-DD-{lastname}-unilever-inputs.yaml
+# 2. Replace all values above with Unilever's audited figures
+# 3. Update STRUCTURAL_NOTES, MANAGEMENT_ROIC_NOTE, LIQUIDITY_CONTEXT with
+#    Unilever-specific business context
+# 4. The spec-template.md requires zero changes — only this file changes
