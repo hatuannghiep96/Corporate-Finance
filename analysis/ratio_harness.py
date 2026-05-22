@@ -415,20 +415,6 @@ def compare_and_report(r, llm):
     print("Harness complete.")
     print(f"{'='*62}\n")
 
-# ── MAIN ──────────────────────────────────────────────────────────────────────
-
-if __name__ == "__main__":
-    print("\n" + "=" * 62)
-    print("  Ratio Conformance Harness v1.0")
-    print("  Ha Tuan Nghiep — BUS-629 Corporate Finance")
-    print("  github.com/hatuannghiep96/Corporate-Finance")
-    print("=" * 62)
-
-    d = load_workbook_data(WORKBOOK_PATH)
-    r = compute_ratios(d)
-    llm = extract_llm_values(ANALYSIS_PATH)
-    compare_and_report(r, llm)
-
 # ── STEP 5: SENSITIVITY & MONTE CARLO ─────────────────────────────────────────
 
 def run_sensitivity(d):
@@ -561,6 +547,26 @@ def run_sensitivity(d):
 
     print(f"{'='*62}")
     print("Sensitivity analysis complete.")
+
+# ── MAIN ──────────────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    import sys
+    sensitivity_mode = "--sensitivity" in sys.argv
+
+    print("\n" + "=" * 62)
+    print("  Ratio Conformance Harness v1.0")
+    print("  Ha Tuan Nghiep — BUS-629 Corporate Finance")
+    print("  github.com/hatuannghiep96/Corporate-Finance")
+    print("=" * 62)
+
+    d = load_workbook_data(WORKBOOK_PATH)
+    r = compute_ratios(d)
+    llm = extract_llm_values(ANALYSIS_PATH)
+    compare_and_report(r, llm)
+
+    if sensitivity_mode:
+        run_sensitivity(d)
     print(f"{'='*62}\n")
 
 
