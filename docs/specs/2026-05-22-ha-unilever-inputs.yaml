@@ -1,0 +1,195 @@
+# Unilever PLC — Company-Specific Inputs
+# Pairs with: docs/templates/spec-template.md
+# Source: Unilever Annual Report and Accounts 2025 (IFRS, EUR millions)
+# Financial statements pages 128-135 of the PDF
+# All monetary values in EUR millions unless noted.
+
+# ── COMPANY IDENTITY ──────────────────────────────────────────────────────────
+COMPANY_FULL: "Unilever PLC"
+COMPANY_SHORT: "Unilever"
+TICKER: "ULVR"
+EXCHANGE: "London Stock Exchange (LSE)"
+ANALYST_NAME: "Ha Tuan Nghiep"
+ANALYSIS_DATE: "2026-05-22"
+VERSION: "1.0"
+
+# ── REPORTING ─────────────────────────────────────────────────────────────────
+REPORTING_STANDARD: "IFRS as issued by the IASB and UK-adopted international accounting standards"
+CURRENCY: "EUR"
+CURRENCY_FULL: "Euros (EUR)"
+UNIT: "millions"
+FY_CURRENT: "FY2025"
+FY_PRIOR: "FY2024"
+FYE_CURRENT: "December 31, 2025"
+FYE_PRIOR: "December 31, 2024"
+WORKBOOK_FILENAME: "2026-05-22-ha-unilever-financials.xlsx"
+INPUTS_FILE: "docs/specs/2026-05-22-ha-unilever-inputs.yaml"
+
+# ── AUDIENCE ──────────────────────────────────────────────────────────────────
+AUDIENCE_PRIMARY: "Portfolio analyst comparing Nestlé and Unilever FMCG peers"
+AUDIENCE_SECONDARY: "BUS-629 course instructor reviewing Direction 4 template validation"
+
+# ── BALANCE SHEET — FY2025 (CURRENT YEAR) ─────────────────────────────────────
+# Source: Consolidated balance sheet, page 131 of Annual Report 2025
+BAL_cash_marketable_securities_curr: 5062    # Cash 3,941 + Other financial assets current 1,121
+BAL_receivables_curr: 7346                   # Trade and other current receivables
+BAL_inventories_curr: 4043                   # Inventories (net of provision)
+BAL_assets_other_current_curr: 728           # Current tax assets 329 + Assets held for sale 286 + other 113
+BAL_assets_current_curr: 17066               # Total current assets
+BAL_ppe_curr: 8992                           # Property, plant and equipment (net)
+BAL_intangibles_curr: 34764                  # Goodwill 17,709 + Intangible assets 17,055
+BAL_assets_other_curr: 10641                 # Pension 4,462 + Deferred tax 1,146 + Financial assets 3,065 + Other 976 - (wait: 53405-17066-8992-34764 = -7357 wrong)
+# Recalculate: Total non-current = 53,405
+# PP&E 8,992 + Goodwill 17,709 + Intangibles 17,055 + Pension 4,462 + Deferred tax 1,146 + Financial assets 3,065 + Other 976 = 53,405 ✓
+BAL_assets_other_curr: 9649                  # Pension 4,462 + Deferred tax 1,146 + Financial assets 3,065 + Other 976 = 9,649
+BAL_assets_total_curr: 70471                 # Total assets
+
+BAL_debt_current_curr: 2582                  # Financial liabilities current
+BAL_payables_curr: 16939                     # Trade payables and other current liabilities
+BAL_liabilities_other_current_curr: 2141     # Current tax 1,439 + Provisions 589 + Held for sale 113
+BAL_liabilities_current_curr: 21662          # Total current liabilities
+BAL_debt_long_term_curr: 25696               # Financial liabilities non-current
+BAL_liabilities_other_long_term_curr: 5526   # Non-current tax 303 + Pension funded 100 + unfunded 844 + Provisions 539 + Deferred tax 3,603 + Other 137
+BAL_liabilities_total_curr: 52884            # Total liabilities
+BAL_equity_common_curr: 268                  # Share capital (approximate from equity structure)
+BAL_equity_retained_curr: 15262              # Retained earnings + other reserves
+BAL_equity_shareholders_curr: 15530          # Shareholders' equity (excl NCI)
+
+# ── BALANCE SHEET — FY2024 (PRIOR YEAR) ───────────────────────────────────────
+BAL_cash_marketable_securities_prior: 7466   # Cash 6,136 + Other financial assets 1,330
+BAL_receivables_prior: 6011                  # Trade and other current receivables
+BAL_inventories_prior: 5177                  # Inventories
+BAL_assets_other_current_prior: 1870         # Current tax 373 + Assets held for sale 167 + other
+BAL_assets_current_prior: 19194              # Total current assets (per balance sheet)
+BAL_ppe_prior: 11669                         # PP&E
+BAL_intangibles_prior: 40901                 # Goodwill 22,311 + Intangibles 18,590
+BAL_assets_other_prior: 7986                 # Pension 4,164 + Deferred tax 1,280 + Financial 1,571 + Other 971
+BAL_assets_total_prior: 79750                # Total assets
+BAL_debt_current_prior: 6987                 # Financial liabilities current
+BAL_payables_prior: 16690                    # Trade payables and other current liabilities
+BAL_liabilities_other_current_prior: 1557    # Current tax 678 + Provisions 831 + Held for sale 48
+BAL_liabilities_current_prior: 25234         # Total current liabilities
+BAL_debt_long_term_prior: 25066              # Financial liabilities non-current
+BAL_liabilities_other_long_term_prior: 6895  # Non-current tax 585 + Pension 173+1,021 + Provisions 571 + Deferred tax 4,342 + Other 203
+BAL_liabilities_total_prior: 57195           # Total liabilities
+BAL_equity_shareholders_prior: 19990         # Shareholders' equity FY2024
+
+# ── INCOME STATEMENT — FY2025 ─────────────────────────────────────────────────
+# Source: Consolidated income statement, page 128 of Annual Report 2025
+# Note: Using CONTINUING OPERATIONS only for comparability
+INC_sales: 50503                             # Turnover (continuing operations)
+INC_cost_goods_sold: 26794                   # Cost of sales
+INC_sga: 13624                               # Selling and administrative expenses
+INC_depreciation: 1353                       # D&A (from cash flow reconciliation, continuing ops)
+INC_ebit: 9037                               # Operating profit (as reported — includes non-underlying items)
+# Note: INC_ebit computed = 50503 - 26794 - 13624 - 1353 = 8,732
+# Reported operating profit = 9,037 (includes disposal losses/gains, restructuring etc.)
+# Use reported figure: set other_income to reconcile
+INC_other_income: 305                        # Associates 245 + other income/(loss) net -17 + other 77 (plug to reach pre-tax)
+# Pre-tax from continuing ops = 8,693
+# 9,037 (op profit) - 503 (net finance costs) - 68 (hyperinflation) + 245 (associates) - 17 (other) = 8,694 ≈ 8,693 ✓
+INC_interest_expense: 1024                   # Finance costs (gross interest)
+INC_taxable_income: 8693                     # Profit before taxation from continuing operations
+INC_taxes: 2481                              # Taxation (continuing operations)
+INC_net: 5682                                # Net profit from continuing ops attributable to shareholders
+INC_dividends: 4453                          # Dividends on ordinary capital
+
+# ── CASH FLOW — FY2025 ────────────────────────────────────────────────────────
+# Source: Consolidated cash flow statement, page 132 of Annual Report 2025
+CASH_operating: 8350                         # Total cash flows from operating activities (incl. discontinued)
+CASH_capex: -1417                            # Purchase of PP&E (continuing)
+CASH_investing: -3118                        # Total cash outflow used in investing activities
+CASH_financing: -6814                        # Total cash flow used in financing activities
+CASH_net: -1582                              # Net increase/(decrease) in cash and cash equivalents
+CASH_depreciation: 1353                      # D&A from cash flow reconciliation
+
+# ── ANALYST ASSUMPTIONS ───────────────────────────────────────────────────────
+yearCurrent: 2025
+share_price: 62.88      # ULVR ADR closing price Dec 31 2025: USD 65.40 / EUR~USD 1.04 = EUR 62.88. Post 888:1000 split (Dec 9 2025).
+shares_outstanding: 2186  # Basic weighted avg shares: Net profit to shareholders EUR 9,469M / Basic EPS EUR 4.33 = ~2,186M shares (post 888:1000 split)
+cost_capital: 0.09        # 9.0% WACC — same assumption for peer comparison
+tax_rate: 0.286           # Effective rate: 2,481 / 8,693 = 28.5% (continuing ops)
+
+# ── COMPANY-SPECIFIC CONTEXT ──────────────────────────────────────────────────
+
+STRUCTURAL_NOTES: >
+  Unilever demerged its Ice Cream business (The Magnum Ice Cream Company) in 2025.
+  All FY2025 figures are on a continuing operations basis (Beauty & Wellbeing,
+  Personal Care, Home Care, Foods). FY2024 comparatives have been restated to
+  reflect the demerger. The discontinued operations generated a gain of €3,373M
+  on disposal — excluded from continuing operations analysis.
+  NWC is negative: currentYear_working_capital_net = 17,066 - 21,662 = (4,596) EUR M.
+  This is structurally driven by large trade payables to retailer networks.
+
+MANAGEMENT_ROIC_NOTE: >
+  Unilever reports underlying ROIC (return on invested capital) as a non-GAAP measure.
+  Compare template ROC to management's high-teens ROIC ambition stated in the 2025
+  value creation plan. Note that Unilever's ROIC definition uses underlying operating
+  profit (excluding restructuring, impairments, disposals) while the template uses
+  after-tax operating income including all items.
+
+INDUSTRY_COLLECTION_NORM: "30–45 days (FMCG industry)"
+
+COLLECTION_PERIOD_CONTEXT: >
+  Unilever's retail counterparty base (major grocery chains in Europe, US, Asia)
+  typically negotiates payment terms of 30–60 days. Collection period above 45 days
+  reflects exposure to longer-terms markets in emerging economies.
+
+MANAGEMENT_OPERATING_MARGIN: >
+  Unilever's underlying operating margin (UOM) for FY2025 — refer to Additional
+  Financial Disclosures pages 40-46 of the Annual Report. Reported operating profit
+  margin = 9,037 / 50,503 = 17.9%. Template figure will differ as it uses
+  after-tax operating income.
+
+MANAGEMENT_LEVERAGE_NOTE: >
+  Unilever targets ~2x net debt/EBITDA per its value creation plan. Financial
+  liabilities: current 2,582 + non-current 25,696 = 28,278 gross debt. Net of
+  cash 3,941 + financial assets 1,121 = 5,062: net debt ≈ 23,216 EUR M.
+
+LIQUIDITY_CONTEXT: >
+  Current ratio below 1.0x (17,066 / 21,662 = 0.79x) is structurally normal for
+  Unilever — large trade payables to retail customers drive negative NWC.
+  Operating cash flow from continuing ops (net of tax) = EUR 8,052M provides
+  the real liquidity buffer. Direct comparison to Nestlé's 0.786x current ratio
+  is meaningful — both companies use supplier financing as a structural advantage.
+
+LEVERAGE_SUSTAINABILITY_NOTE: >
+  Unilever targets ~2x net debt/EBITDA per value creation plan vs Nestlé's 2–3x
+  target. Compare leverage ratios and EVA headroom between the two peers.
+  Key difference: Unilever's balance sheet was significantly reshaped by the
+  Ice Cream demerger — total assets fell from €79.8B to €70.5B and goodwill
+  dropped €4.6B as Ice Cream brands were derecognised.
+
+RECOMMENDATION_THEMES: |
+  1. Portfolio focus dividend — Ice Cream demerger complete; evaluate whether remaining
+     four business groups (Beauty & Wellbeing, Personal Care, Home Care, Foods) show
+     improved asset turnover vs pre-demerger baseline.
+  2. Margin expansion — underlying operating margin trajectory; "Fuel for Growth"
+     equivalent is Unilever's productivity programme (€710M restructuring in FY2024).
+  3. WACC headroom vs Nestlé — compare EVA break-even WACC for both companies;
+     which has more value-creation headroom under stress?
+  4. Working capital comparison — Nestlé NWC (CHF 8,725M) vs Unilever NWC (EUR 4,596M);
+     relative supplier financing advantage as % of revenue.
+  5. Capital allocation post-demerger — €4.3B dividends + €1.5B buybacks in FY2025;
+     evaluate vs Nestlé's dividend + buyback policy.
+
+# ── SOURCE DOCUMENTATION ──────────────────────────────────────────────────────
+sources:
+  - "Unilever Annual Report and Accounts 2025. unilever.com/files/unilever-annual-report-and-accounts-2025.pdf"
+  - "Consolidated income statement: page 128"
+  - "Consolidated balance sheet: page 131"
+  - "Consolidated cash flow statement: page 132"
+  - "Notes to financial statements: pages 133-183"
+
+# ── IMPORTANT NOTES FOR ANALYST ───────────────────────────────────────────────
+# 1. CURRENCY: All figures in EUR millions (vs CHF millions for Nestlé)
+#    Direct ratio comparison is valid; absolute CHF/EUR values are not directly comparable.
+# 2. ICE CREAM DEMERGER: FY2024 restated figures exclude Ice Cream throughout.
+#    Use restated FY2024 figures (as published in 2025 Annual Report) for prior year.
+# 3. SHARE PRICE: Verify ULVR closing price December 31, 2025 from LSE.
+#    The €42.50 assumption is an estimate — update before running market-based ratios.
+# 4. CONTINUING OPS: All income statement figures are continuing operations only.
+#    Total net profit (€10,011M) includes €3,798M from discontinued Ice Cream.
+#    Use continuing ops net profit (€5,682M attributable to shareholders) for ratio analysis.
+# 5. D&A: Taken from cash flow reconciliation (€1,353M continuing ops).
+#    This differs from segment D&A of €1,310M due to corporate allocations.
