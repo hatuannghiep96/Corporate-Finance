@@ -395,3 +395,128 @@ Add §12 Sensitivity Specification to spec-template.md. Extend ratio_harness.py 
 
 **Priority 3 — Direction 4 validation (Unilever run):**
 Download Unilever FY2024 + FY2025 IFRS financials. Create `2026-05-22-ha-unilever-inputs.yaml` by duplicating the Nestlé file and replacing all values. Run spec-template.md end-to-end. Write a one-page comparison memo: where do Nestlé and Unilever converge/diverge on ratios, and what does the gap reveal about FMCG capital allocation strategy?
+
+---
+
+## Portfolio Extensions — Direction 3: Monte Carlo EVA Sensitivity (2026-05-22)
+
+**Tool:** Claude (claude.ai) for script design; Claude Code for execution
+**Model:** Claude Sonnet 4.6
+**Purpose:** Extend the ratio harness with a 5,000-trial Monte Carlo simulation over the two analyst assumptions that most affect EVA, per spec Section 12 requirements. Also add §12 Sensitivity Specification to spec-template.md so any future LLM run knows to produce this output.
+
+**Design rationale:**
+The instructor noted in the Stage 4 feedback that Gap 3 (EVA capital base ambiguity) revealed an insight: "EVA = 0 when WACC = atoi / startYear_cap = 10,411 / 88,390 = 11.78%." This is arithmetic that should run automatically, not be computed once and forgotten. The Monte Carlo extension makes that computation repeatable, generalizable, and self-documenting.
+
+**Prompt (claude.ai):**
+```
+Extend ratio_harness.py with a Step 5 Monte Carlo sensitivity function.
+Requirements per spec Section 12:
+- Draw cost_capital from triangular distribution (low=7%, mode=9%, high=11%)
+- Draw tax_rate from uniform distribution (low=22%, high=28%)
+- Run 5,000 trials, recompute EVA each trial using numpy
+- Report EVA at 10th, 50th, 90th percentile
+- Report P(EVA > 0)
+- Compute break-even WACC analytically: atoi / startYear_cap
+- Produce text tornado chart showing WACC vs tax rate dominance
+- Add --sensitivity flag to argparse so base harness runs unchanged
+Also add Section 12 Sensitivity Specification to spec-template.md
+with the exact output requirements as a structured table.
+```
+
+**Monte Carlo results (5,000 trials, seed=42):**
+
+| Output | Value |
+|---|---|
+| EVA 10th percentile (pessimistic) | CHF 1,479M |
+| EVA 50th percentile (median) | CHF 2,450M |
+| EVA 90th percentile (optimistic) | CHF 3,451M |
+| P(EVA > 0) | **100.0%** |
+| Break-even WACC | **11.78%** (278bps headroom above base 9.0%) |
+| WACC dominance over tax rate | **32×** (±CHF 1,768M vs ±CHF 55M) |
+
+**Key insight:** WACC is the dominant driver of EVA uncertainty by a factor of 32. Tax rate optimization is essentially irrelevant to Nestlé's value creation thesis — WACC management is everything. Nestlé's value-creation thesis is robust across 100% of simulated scenarios.
+
+**Spec impact:** §12 added to spec-template.md — any future company run using the template will automatically include this sensitivity analysis. The harness catches break-even WACC automatically for any company whose inputs yaml is loaded.
+
+---
+
+## Portfolio Extensions — Direction 3 + Operational Context Annex (2026-05-22)
+
+**Tool:** Claude (claude.ai)
+**Model:** Claude Sonnet 4.6
+**Purpose:** Extract Nestlé Vietnam insider knowledge into a standalone reusable artifact, per instructor's specific suggestion in Stage 4 feedback: "pulled out, it becomes a reusable annex that future Stage 5 runs can re-inject as context — and it's a portfolio piece in its own right."
+
+**Prompt:**
+```
+Write analysis/operational-context.md — a standalone reusable annex
+extracting my Nestlé Vietnam operational experience. Structure:
+1. How to use this file (injection instructions for future LLM runs)
+2. The replenishment system — three stages, Đơn Hàng Đề Nghị,
+   safety stock 15-21 days, bullwhip effect elimination
+3. Supplier payment terms — 90-day global policy, financial consequence
+   at group level, interaction with retail collection terms
+4. Cross-border export-import operations (Vietnam-Japan, coffee line)
+5. Supplier Innovation Workshop 2023 context
+6. Implications for ratio interpretation (specific ratio categories)
+7. What this context cannot tell you (honest limitations)
+```
+
+**Design decision:** Section 7 (limitations) is the most important section analytically. Writing what your insider knowledge cannot tell you — subsidiary vs. group, 14-month tenure vs. current policy, coffee line vs. other categories — is what distinguishes a credible analytical voice from unqualified generalization. This section makes the rest of the document more credible, not less.
+
+**Output:** 1,438 words across 7 sections — commit `c66277d`
+
+---
+
+## Portfolio Extensions — Direction 4 Validation: Unilever Peer Comparison (2026-05-22)
+
+**Tool:** Claude (claude.ai) for data extraction and script design; Claude Code for execution
+**Model:** Claude Sonnet 4.6
+**Purpose:** Validate that spec-template.md is truly company-agnostic by running it for Unilever PLC (ULVR) — a direct FMCG peer to Nestlé — using only a swapped inputs yaml file. This is the core Direction 4 test: does the template require zero changes between companies?
+
+**Data extraction prompt:**
+```
+Read the Unilever Annual Report and Accounts 2025 (PDF uploaded).
+Extract all financial statement data needed to populate the spec-template
+named ranges for FY2025 (current) and FY2024 (prior):
+- Consolidated balance sheet (page 131)
+- Consolidated income statement (page 128)
+- Consolidated cash flow statement (page 132)
+- Notes for D&A, inventories, finance costs, tax charge
+Report currency (EUR millions), any restatements, and important
+structural notes (Ice Cream demerger, continuing ops basis).
+```
+
+**Key extraction decisions made:**
+1. **Continuing operations only:** Unilever demerged Ice Cream in 2025 (gain €3,373M). All income statement figures use continuing operations (€5,682M net profit to parent) to ensure comparability with Nestlé's uninterrupted operations.
+2. **FY2024 restated:** Unilever restated FY2024 comparatives to exclude Ice Cream throughout. Used restated figures for prior-year named ranges.
+3. **Share price verification:** ULVR ADR closing price December 31, 2025 = USD 65.40 (verified from Yahoo Finance historical data). Converted at EUR/USD 1.04 = EUR 62.88. Post 888:1000 stock split (December 9, 2025) already reflected.
+4. **Shares outstanding:** Back-calculated from EPS disclosure — total net profit to shareholders EUR 9,469M / Basic EPS EUR 4.33 = 2,186M shares.
+5. **Tax rate:** Effective rate from continuing operations — 2,481 / 8,693 = 28.5%.
+
+**Peer comparison script prompt:**
+```
+Write analysis/peer_comparison.py that:
+1. Reads both nestle-inputs.yaml and unilever-inputs.yaml via pyyaml
+2. Computes all ratios for both companies using identical formulas
+3. Prints a side-by-side comparison table across all 6 ratio categories
+4. Adds analyst commentary section identifying the 6 most analytically
+   interesting divergences with directional conclusions
+5. Ends with a Direction 4 template validation verdict
+Currency note: Nestlé in CHF, Unilever in EUR — ratios are comparable;
+absolute monetary values are not directly comparable.
+```
+
+**Results — Nestlé vs Unilever FY2025:**
+
+| Category | Key finding |
+|---|---|
+| Profitability | Unilever leads across every metric — ROC avg 14.9% vs 12.4%, ROE avg 32.0% vs 25.9% |
+| Value creation | Unilever EVA spread 5.9pp vs Nestlé 3.4pp above WACC; break-even WACC headroom 5.2pp vs 2.8pp |
+| Efficiency | Asset turnover virtually identical (0.64x vs 0.63x); inventory gap is the standout — Unilever 70.5 days vs Nestlé 99.4 days (Nestlé's replenishment system visible in data) |
+| Leverage | Almost identical — both 74-75% debt ratio, both 0.79x current ratio |
+| Interest coverage | Unilever TIE 8.83x materially stronger than Nestlé 5.67x |
+| Template | Direction 4 confirmed ✅ — spec-template.md ran identically; only inputs yaml changed |
+
+**Most analytically interesting finding:** Nestlé's 99.4-day inventory vs Unilever's 70.5-day inventory reveals the trade-off in Nestlé's replenishment system. The 3-stage commitment model with 15-21 day safety stock is operationally disciplined but maintains higher buffers than Unilever's leaner model. Whether this reflects the complexity of Nestlé's 188-country footprint and temperature-controlled categories, or an opportunity to tighten further, is a legitimate analytical question for Stage 5-equivalent work.
+
+**Direction 4 validation verdict:** Template is fully company-agnostic. The named-range conventions (Section 3), formula definitions (Section 6), validation rules (Section 7), and Du Pont decomposition (Section 9) required zero changes between Nestlé and Unilever. Only the inputs yaml changed. To run for a third company: duplicate the yaml, replace all values, run peer_comparison.py.
